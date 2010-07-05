@@ -9,6 +9,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -18,7 +19,8 @@ import android.widget.Button;
  *
  */
 public class HomeActivity extends Activity implements OnClickListener {
-
+	static final String TAG = "LobbyHome";
+	
 	static final int DIALOG_ERROR = 1;
 	
 	/* (non-Javadoc)
@@ -39,9 +41,13 @@ public class HomeActivity extends Activity implements OnClickListener {
 			Intent intent = new Intent();
 			intent.setAction(Intent.ACTION_VIEW);
 			intent.setDataAndType(Uri.parse(this.getString(R.string.default_lobby_uri)), getString(R.string.lobby_mime_type));
-			startActivity(intent);
+			//intent.addCategory(Intent.CATEGORY_DEFAULT);
+			intent.addFlags(Intent.FLAG_DEBUG_LOG_RESOLUTION);
+			//intent.addFlags(Intent.FL)
+			this.startActivity(intent);
 		}
 		catch (Exception e) {
+			Log.e(TAG, "Opening "+getString(R.string.default_lobby_uri), e);
 			showDialog(DIALOG_ERROR);
 		}
 	}

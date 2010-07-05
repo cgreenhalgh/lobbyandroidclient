@@ -4,5 +4,5 @@
     <string name="app_name">Horizon Lobby</string>
 <string name="default_lobby">Connect to default lobby</string>
 <string name="lobby_mime_type">application/x-horizon-ug-lobby-json</string>
-<string name="default_lobby_uri">http://chris-greenhalgh.appspot.com/lobbyservice</string>
+<string name="default_lobby_uri">http://chris-greenhalgh.appspot.com/lobbyservice/json</string> 
 </resources>

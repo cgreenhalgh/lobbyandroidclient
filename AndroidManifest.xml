@@ -6,24 +6,29 @@
     <application android:icon="@drawable/icon" android:label="@string/app_name" android:debuggable="true">
         <activity android:name=".MainActivity"
                   android:label="@string/app_name">
-        <intent-filter>
-        	<data android:mimeType="application/x-horizon-ug-lobby-json"></data>
-			<category android:name="android.intent.category.BROWSABLE"></category>
-			<action android:name="android.intent.action.VIEW"></action>
-		</intent-filter>
+        <!--  to open from browser on mime type -->
         <intent-filter>
         	<data android:mimeType="application/x-horizon-ug-lobby-json"></data>
 			<action android:name="android.intent.action.VIEW"></action>
+		<category android:name="android.intent.category.DEFAULT"></category>
 		</intent-filter>
+<!--  to open non-file seems to need explicit scheme --><!--         <intent-filter>
+        	<data android:mimeType="application/x-horizon-ug-lobby-json" android:scheme="http"></data>
+			<action android:name="android.intent.action.VIEW"></action>
+		
+<category android:name="android.intent.category.DEFAULT"></category>
+</intent-filter> -->
 		</activity>
 
-    	<activity android:name=".HomeActivity" android:launchMode="singleTask">
+<!--  just using browser for now --><!--     	<activity android:name=".HomeActivity" android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-    	</activity>
+    	</activity> -->
 	</application>
 
+
+<uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
 </manifest> 
