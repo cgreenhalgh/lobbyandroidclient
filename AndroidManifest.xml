@@ -20,16 +20,14 @@
 </intent-filter> -->
 		</activity>
 
-<!--  just using browser for now --><!--     	<activity android:name=".HomeActivity" android:launchMode="singleTask">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-    	</activity> -->
-	<activity android:name=".HomeActivity"><intent-filter><action android:name="android.intent.action.MAIN"></action>
-<category android:name="android.intent.category.LAUNCHER"></category>
-</intent-filter>
+<!-- apparently WebView handles orientation changes ok and this stops page re-loading -->
+<activity android:name=".HomeActivity" android:configChanges="orientation|keyboardHidden">
+	<intent-filter>
+		<action android:name="android.intent.action.MAIN"></action>
+		<category android:name="android.intent.category.LAUNCHER"></category>
+	</intent-filter>
 </activity>
+
 </application>
 
 
