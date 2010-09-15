@@ -6,11 +6,15 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.net.URI;
+import java.util.List;
 
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
@@ -59,8 +63,17 @@ public class MainActivity extends Activity {
         catch (Exception e) {
         	Log.e(TAG, "Error opening data "+data, e);
         }
+        
     }
-
+    /** check intent(s) */
+    public static boolean isIntentAvailable(Context context, String action) { 
+    	final PackageManager packageManager = context.getPackageManager(); 
+    	final Intent intent = new Intent(action);    
+    	List<ResolveInfo> list =            
+    		packageManager.queryIntentActivities(intent,                  
+    				PackageManager.MATCH_DEFAULT_ONLY);   
+    	return list.size() > 0;
+    }
     
     /** losing focus - persist... */
 	@Override
