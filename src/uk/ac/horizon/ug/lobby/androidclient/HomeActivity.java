@@ -9,9 +9,14 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.webkit.JsResult;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.Button;
 
 /**
@@ -21,6 +26,9 @@ import android.widget.Button;
 public class HomeActivity extends Activity implements OnClickListener {
 	static final String TAG = "LobbyHome";
 	
+	private WebView mWebView;
+	private Handler mHandler = new Handler(); 
+	   
 	static final int DIALOG_ERROR = 1;
 	
 	/* (non-Javadoc)
@@ -30,10 +38,31 @@ public class HomeActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
-        Button button = (Button)findViewById(R.id.go_to_default);
-        button.setOnClickListener(this);
-	}
+//        Button button = (Button)findViewById(R.id.go_to_default);
+//        button.setOnClickListener(this);
+        mWebView = (WebView) findViewById(R.id.webview);
+        WebSettings webSettings = mWebView.getSettings();
+        webSettings.setSavePassword(false);          
+        webSettings.setSaveFormData(false);         
+        webSettings.setJavaScriptEnabled(true);       
+        webSettings.setSupportZoom(false);      
 
+        mWebView.addJavascriptInterface(new TestJavaScriptInterface(), "test");    
+        
+        mWebView.loadUrl("file:///android_asset/test.html");	
+    }
+
+	class TestJavaScriptInterface {
+		//mHandler.post(new Runnable() {   
+		// public void run() {                     
+		// mWebView.loadUrl("javascript:wave()");   
+		//}
+		public void hello() {
+			Log.i(TAG,"hello javascript!");
+		}
+	}
+	
+	
 	/** button */
 	@Override
 	public void onClick(View view) {
@@ -72,5 +101,16 @@ public class HomeActivity extends Activity implements OnClickListener {
 	}
 	
 	
-
+	/**       
+	 * Provides a hook for calling "alert" from javascript. Useful for       
+	 * debugging your javascript.       
+	 */    
+	final class MyWebChromeClient extends WebChromeClient {
+		@Override          
+		public boolean onJsAlert(WebView view, String url, String message, JsResult result) {   
+			Log.d(TAG, message);            
+			result.confirm();     
+			return true;     
+		}
+	}  
 }
